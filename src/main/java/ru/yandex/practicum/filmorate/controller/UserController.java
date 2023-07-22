@@ -18,7 +18,7 @@ public class UserController {
     private final static Logger log = LoggerFactory.getLogger(FilmController.class);
     @PostMapping("/users")
     public User postUser(@RequestBody User user) throws ValidateException {
-        if ( user.getEmail().isBlank() ) {
+        if (user.getEmail().isBlank()) {
             throw new ValidateException( "Email can not be null");
         }
 
