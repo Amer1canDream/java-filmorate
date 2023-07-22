@@ -23,19 +23,19 @@ public class FilmController {
         Date d2 = sdf.parse("1895-01-28");
 
         if ( film.getName().isEmpty() ) {
-            throw new ValidateException( "Name can not be null");
+            throw new ValidateException("Name can not be null");
         }
         if ( film.getName() == null ) {
-            throw new ValidateException( "Name can not be null");
+            throw new ValidateException("Name can not be null");
         }
         if ( film.getDescription().length() > 200) {
-            throw new ValidateException( "Length of description can't be more that 200");
+            throw new ValidateException("Length of description can't be more that 200");
         }
         if ( film.getReleaseDate().before(d2)) {
-            throw new ValidateException( "Date must be after 1895-01-28");
+            throw new ValidateException("Date must be after 1895-01-28");
         }
         if ( film.getDuration() < 0 ) {
-            throw new ValidateException( "Duration must be positive");
+            throw new ValidateException("Duration must be positive");
         }
         films.put(film.getId(), film);
         log.info("Film {} created", film.getName());
@@ -49,19 +49,19 @@ public class FilmController {
         Date d2 = sdf.parse("1895-01-28");
 
         if ( film.getName().isEmpty() ) {
-            throw new ValidateException( "Name can not be null");
+            throw new ValidateException("Name can not be null");
         }
         if ( film.getName() == null ) {
-            throw new ValidateException( "Name can not be null");
+            throw new ValidateException("Name can not be null");
         }
         if ( film.getDescription().length() > 200) {
-            throw new ValidateException( "Length of description can't be more that 200");
+            throw new ValidateException("Length of description can't be more that 200");
         }
         if ( film.getReleaseDate().before(d2)) {
-            throw new ValidateException( "Date must be after 1895-01-28");
+            throw new ValidateException("Date must be after 1895-01-28");
         }
         if ( film.getDuration() < 0 ) {
-            throw new ValidateException( "Duration must be positive");
+            throw new ValidateException("Duration must be positive");
         }
         films.put(film.getId(), film);
         log.info("Film {} updated", film.getName());
