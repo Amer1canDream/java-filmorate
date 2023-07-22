@@ -16,7 +16,6 @@ import java.util.HashMap;
 public class FilmController {
     private final static Logger log = LoggerFactory.getLogger(FilmController.class);
     private HashMap<Integer, Film> films = new HashMap<>();
-
     @PostMapping("/films")
     public Film postFilm(@RequestBody Film film) throws ValidateException, ParseException {
 
