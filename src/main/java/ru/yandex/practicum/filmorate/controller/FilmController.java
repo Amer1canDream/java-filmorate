@@ -1,6 +1,5 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -27,19 +26,15 @@ public class FilmController {
         if ( film.getName().isEmpty() ) {
             throw new ValidateException( "Name can not be null");
         }
-
         if ( film.getName() == null ) {
             throw new ValidateException( "Name can not be null");
         }
-
         if ( film.getDescription().length() > 200) {
             throw new ValidateException( "Length of description can't be more that 200");
         }
-
         if ( film.getReleaseDate().before(d2)) {
             throw new ValidateException( "Date must be after 1895-01-28");
         }
-
         if ( film.getDuration() < 0 ) {
             throw new ValidateException( "Duration must be positive");
         }
