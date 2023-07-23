@@ -14,34 +14,34 @@ import java.util.HashMap;
 @RestController
 public class UserController {
     private HashMap<Integer, User> users = new HashMap<>();
-    final private static Logger log = LoggerFactory.getLogger(FilmController.class);
+    private static final Logger log = LoggerFactory.getLogger(FilmController.class);
     @PostMapping("/users")
     public User postUser(@RequestBody User user) throws ValidateException {
         if (user.getEmail().isBlank()) {
             throw new ValidateException("Email can not be null");
         }
 
-        if ( user.getEmail() == null  ) {
+        if (user.getEmail() == null) {
             throw new ValidateException("Email can not be null");
         }
 
-        if ( !user.getEmail().contains("@") ) {
+        if (!user.getEmail().contains("@") ) {
             throw new ValidateException("User email must contains @");
         }
 
-        if ( user.getLogin().isBlank() || user.getLogin() == null ) {
+        if (user.getLogin().isBlank() || user.getLogin() == null ) {
             throw new ValidateException("Login can not be null" );
         }
 
-        if ( user.getLogin().contains(" ")) {
+        if (user.getLogin().contains(" ")) {
             throw new ValidateException("Login can not contains probel" );
         }
 
-        if ( user.getName().isBlank() || user.getName() == null ) {
+        if (user.getName().isBlank() || user.getName() == null ) {
             user.setName(user.getLogin());
         }
 
-        if ( user.getBirthday().after(Date.valueOf(LocalDate.now()))) {
+        if (user.getBirthday().after(Date.valueOf(LocalDate.now()))) {
             throw new ValidateException("Birthday can not be in future");
         }
         users.put(user.getId(), user);
@@ -51,31 +51,31 @@ public class UserController {
 
     @PutMapping("/users")
     public User putUser(@RequestBody User user) throws ValidateException {
-        if ( user.getEmail().isBlank() ) {
+        if (user.getEmail().isBlank()) {
             throw new ValidateException("Email can not be null");
         }
 
-        if ( user.getEmail() == null  ) {
+        if (user.getEmail() == null) {
             throw new ValidateException("Email can not be null");
         }
 
-        if ( !user.getEmail().contains("@") ) {
+        if (!user.getEmail().contains("@")) {
             throw new ValidateException("User email must contains @");
         }
 
-        if ( user.getLogin().isBlank() || user.getLogin() == null ) {
-            throw new ValidateException("Login can not be null" );
+        if (user.getLogin().isBlank() || user.getLogin() == null) {
+            throw new ValidateException("Login can not be null");
         }
 
-        if ( user.getLogin().contains(" ")) {
-            throw new ValidateException("Login can not contains probel" );
+        if (user.getLogin().contains(" ")) {
+            throw new ValidateException("Login can not contains probel");
         }
 
-        if ( user.getName().isBlank() || user.getName() == null ) {
+        if (user.getName().isBlank() || user.getName() == null) {
             user.setName(user.getLogin());
         }
 
-        if ( user.getBirthday().after(Date.valueOf(LocalDate.now()))) {
+        if (user.getBirthday().after(Date.valueOf(LocalDate.now()))) {
             throw new ValidateException("Birthday can not be in future");
         }
         users.put(user.getId(), user);
