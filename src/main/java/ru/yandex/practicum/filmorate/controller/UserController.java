@@ -1,6 +1,5 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +14,7 @@ import java.util.HashMap;
 public class UserController {
     private HashMap<Integer, User> users = new HashMap<>();
     private static final Logger log = LoggerFactory.getLogger(FilmController.class);
+
     @PostMapping("/users")
     public User postUser(@RequestBody User user) throws ValidateException {
         if (user.getEmail().isBlank()) {
@@ -25,19 +25,19 @@ public class UserController {
             throw new ValidateException("Email can not be null");
         }
 
-        if (!user.getEmail().contains("@") ) {
+        if (!user.getEmail().contains("@")) {
             throw new ValidateException("User email must contains @");
         }
 
-        if (user.getLogin().isBlank() || user.getLogin() == null ) {
-            throw new ValidateException("Login can not be null" );
+        if (user.getLogin().isBlank() || user.getLogin() == null) {
+            throw new ValidateException("Login can not be null");
         }
 
         if (user.getLogin().contains(" ")) {
-            throw new ValidateException("Login can not contains probel" );
+            throw new ValidateException("Login can not contains probel");
         }
 
-        if (user.getName().isBlank() || user.getName() == null ) {
+        if (user.getName().isBlank() || user.getName() == null) {
             user.setName(user.getLogin());
         }
 
