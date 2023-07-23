@@ -18,7 +18,6 @@ public class FilmController {
     private HashMap<Integer, Film> films = new HashMap<>();
     @PostMapping("/films")
     public Film postFilm(@RequestBody Film film) throws ValidateException, ParseException {
-
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date d2 = sdf.parse("1895-01-28");
 
@@ -51,7 +50,7 @@ public class FilmController {
         if (film.getName().isEmpty()) {
             throw new ValidateException("Name can not be null");
         }
-        if (film.getName() == null ) {
+        if (film.getName() == null) {
             throw new ValidateException("Name can not be null");
         }
         if (film.getDescription().length() > 200) {
