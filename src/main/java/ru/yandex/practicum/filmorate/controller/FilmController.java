@@ -60,7 +60,7 @@ public class FilmController {
         if ( film.getReleaseDate().before(d2)) {
             throw new ValidateException("Date must be after 1895-01-28");
         }
-        if ( film.getDuration() < 0 ) {
+        if (film.getDuration() < 0) {
             throw new ValidateException("Duration must be positive");
         }
         films.put(film.getId(), film);
@@ -69,7 +69,7 @@ public class FilmController {
     }
 
     @GetMapping("/films")
-    public HashMap<Integer ,Film> getFilms() {
+    public HashMap<Integer, Film> getFilms() {
         log.info("All films returned");
         return films;
     }
