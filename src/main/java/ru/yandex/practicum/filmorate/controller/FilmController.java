@@ -11,6 +11,7 @@ import java.text.ParseException;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -77,9 +78,9 @@ public class FilmController {
     }
 
     @GetMapping("/films")
-    public HashMap<Integer, Film> getFilms() {
+    public Collection getFilms() {
         log.info("All films returned");
-        return films;
+        return films.values();
     }
 
     private void setId(Film film) {
