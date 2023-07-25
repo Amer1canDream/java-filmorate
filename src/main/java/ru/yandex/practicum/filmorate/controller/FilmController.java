@@ -2,6 +2,8 @@ package ru.yandex.practicum.filmorate.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exceptions.ValidateException;
 import ru.yandex.practicum.filmorate.model.Film;
@@ -19,7 +21,7 @@ public class FilmController {
     private HashMap<Integer, Film> films = new HashMap<>();
 
     @PostMapping("/films")
-    public Film postFilm(@RequestBody Film film) throws ValidateException, ParseException {
+    public ResponseEntity postFilm(@RequestBody Film film) throws ValidateException, ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date d2 = sdf.parse("1895-01-28");
 
@@ -41,7 +43,7 @@ public class FilmController {
         setId(film);
         films.put(film.getId(), film);
         log.info("Film {} created", film.getName());
-        return film;
+        return new ResponseEntity<>(film, HttpStatus.CREATED);
     }
 
     @PutMapping("/films")
@@ -77,7 +79,7 @@ public class FilmController {
     }
 
     private void setId(Film film) {
-        film.setId(id);
         id++;
+        film.setId(id);
     }
 }

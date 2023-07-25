@@ -80,6 +80,9 @@ public class UserController {
         if (user.getBirthday().after(Date.valueOf(LocalDate.now()))) {
             throw new ValidateException("Birthday can not be in future");
         }
+        if (!users.containsKey(user.getId())) {
+            throw new ValidateException("There is no user with this ID");
+        }
         users.put(user.getId(), user);
         log.info("User {} updated", user.getName());
         return user;
@@ -92,7 +95,7 @@ public class UserController {
     }
 
     private void setId(User user) {
-        user.setId(id);
         id++;
+        user.setId(id);
     }
 }
