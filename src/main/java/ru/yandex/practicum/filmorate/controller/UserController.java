@@ -8,13 +8,13 @@ import ru.yandex.practicum.filmorate.model.User;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
 
 @RestController
 public class UserController {
     private int id = 0;
-    private List users = new ArrayList();
+    private HashMap<Integer, User> users = new HashMap<>();
     private static final Logger log = LoggerFactory.getLogger(FilmController.class);
 
     @PostMapping("/users")
@@ -51,7 +51,7 @@ public class UserController {
             user.setName(user.getLogin());
         }
         setId(user);
-        users.add(user);
+        users.put(user.getId(), user);
         log.info("User {} created", user.getName());
         return user;
     }
@@ -85,18 +85,18 @@ public class UserController {
         if (user.getBirthday().after(Date.valueOf(LocalDate.now()))) {
             throw new ValidateException("Birthday can not be in future");
         }
-        if (!users.contains(user)) {
+        if (!users.containsKey(user.getId())) {
             throw new ValidateException("There is no user with this ID");
         }
-        users.add(user);
+        users.put(user.getId(), user);
         log.info("User {} updated", user.getName());
         return user;
     }
 
     @GetMapping("/users")
-    public List getUsers() {
+    public Collection getUsers() {
         log.info("All users returned");
-        return users;
+        return users.values();
     }
 
     private void setId(User user) {
