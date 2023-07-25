@@ -39,17 +39,14 @@ public class UserController {
             throw new ValidateException("Login can not contains probel");
         }
 
-        if (user.getName().isBlank() || user.getName() == null) {
-            user.setName(user.getLogin());
-        }
-
         if (user.getBirthday().after(Date.valueOf(LocalDate.now()))) {
             throw new ValidateException("Birthday can not be in future");
         }
 
-        if (user.getName().isBlank() || user.getName() == null) {
+        if (user.getName() == null) {
             user.setName(user.getLogin());
         }
+
         setId(user);
         users.put(user.getId(), user);
         log.info("User {} created", user.getName());
