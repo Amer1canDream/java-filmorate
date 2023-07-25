@@ -46,6 +46,10 @@ public class UserController {
         if (user.getBirthday().after(Date.valueOf(LocalDate.now()))) {
             throw new ValidateException("Birthday can not be in future");
         }
+
+        if (user.getName().isBlank() || user.getName() == null) {
+            user.setName(user.getLogin());
+        }
         setId(user);
         users.add(user);
         log.info("User {} created", user.getName());
