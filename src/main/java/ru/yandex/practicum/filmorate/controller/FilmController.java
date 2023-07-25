@@ -19,7 +19,7 @@ public class FilmController {
     private HashMap<Integer, Film> films = new HashMap<>();
 
     @PostMapping("/films")
-    public Film postFilm(@RequestBody Film film ) throws ValidateException, ParseException {
+    public Film postFilm(@RequestBody Film film) throws ValidateException, ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date d2 = sdf.parse("1895-01-28");
 
