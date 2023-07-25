@@ -92,7 +92,7 @@ public class UserController {
     }
 
     private void setId(User user) {
-        id++;
         user.setId(id);
+        id++;
     }
 }

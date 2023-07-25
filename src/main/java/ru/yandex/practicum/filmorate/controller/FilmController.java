@@ -77,7 +77,7 @@ public class FilmController {
     }
 
     private void setId(Film film) {
-        id++;
         film.setId(id);
+        id++;
     }
 }
