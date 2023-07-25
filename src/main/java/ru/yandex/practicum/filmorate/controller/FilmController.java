@@ -11,14 +11,15 @@ import java.text.ParseException;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 
 @RestController
 public class FilmController {
     private int id = 0;
     private static final Logger log = LoggerFactory.getLogger(FilmController.class);
-    private HashMap<Integer, Film> films = new HashMap<>();
+    private List films = new ArrayList();
 
     @PostMapping("/films")
     public ResponseEntity postFilm(@RequestBody Film film) throws ValidateException, ParseException {
@@ -41,7 +42,7 @@ public class FilmController {
             throw new ValidateException("Duration must be positive");
         }
         setId(film);
-        films.put(film.getId(), film);
+        films.add(film);
         log.info("Film {} created", film.getName());
         return new ResponseEntity<>(film, HttpStatus.CREATED);
     }
@@ -67,13 +68,13 @@ public class FilmController {
         if (film.getDuration() < 0) {
             throw new ValidateException("Duration must be positive");
         }
-        films.put(film.getId(), film);
+        films.add(film);
         log.info("Film {} updated", film.getName());
         return film;
     }
 
     @GetMapping("/films")
-    public HashMap<Integer, Film> getFilms() {
+    public List getFilms() {
         log.info("All films returned");
         return films;
     }
