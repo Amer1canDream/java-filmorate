@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exceptions.ValidateException;
+import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.sql.Date;
@@ -12,6 +13,7 @@ import java.util.HashMap;
 
 @RestController
 public class UserController {
+    private int id = 0;
     private HashMap<Integer, User> users = new HashMap<>();
     private static final Logger log = LoggerFactory.getLogger(FilmController.class);
 
@@ -87,5 +89,10 @@ public class UserController {
     public HashMap<Integer, User> getUsers() {
         log.info("All users returned");
         return users;
+    }
+
+    private void setId(Film film) {
+        id++;
+        film.setId(id);
     }
 }
