@@ -46,6 +46,7 @@ public class UserController {
         if (user.getBirthday().after(Date.valueOf(LocalDate.now()))) {
             throw new ValidateException("Birthday can not be in future");
         }
+        setId(user);
         users.put(user.getId(), user);
         log.info("User {} created", user.getName());
         return user;
@@ -91,8 +92,8 @@ public class UserController {
         return users;
     }
 
-    private void setId(Film film) {
+    private void setId(User user) {
         id++;
-        film.setId(id);
+        user.setId(id);
     }
 }
