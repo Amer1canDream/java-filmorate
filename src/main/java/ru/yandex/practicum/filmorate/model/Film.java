@@ -25,7 +25,6 @@ public class Film {
     @NotNull
     private String name;
     @Size(max = 200)
-    @Min(0)
     private String description;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date releaseDate;
