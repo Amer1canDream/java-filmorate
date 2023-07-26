@@ -10,6 +10,7 @@ import java.util.Date;
 
 @Data
 public class User {
+    private int id;
 
     public User(int id, String name, String email, String login, Date birthday) {
         this.name = name;
@@ -18,7 +19,7 @@ public class User {
         this.login = login;
         this.birthday = birthday;
     }
-    private int id;
+
     @Email
     private String email;
     @NotBlank
