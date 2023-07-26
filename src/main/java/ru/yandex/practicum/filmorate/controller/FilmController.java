@@ -10,6 +10,7 @@ import ru.yandex.practicum.filmorate.model.Film;
 import java.text.ParseException;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -22,24 +23,12 @@ public class FilmController {
     private HashMap<Integer, Film> films = new HashMap<>();
 
     @PostMapping("/films")
-    public ResponseEntity postFilm(@RequestBody Film film) throws ValidateException, ParseException {
+    public ResponseEntity postFilm(@Valid @RequestBody Film film) throws ValidateException, ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date d2 = sdf.parse("1895-01-28");
-
-        if (film.getName().isEmpty()) {
-            throw new ValidateException("Name can not be null");
-        }
-        if (film.getName() == null) {
-            throw new ValidateException("Name can not be null");
-        }
-        if (film.getDescription().length() > 200) {
-            throw new ValidateException("Length of description can't be more that 200");
-        }
         if (film.getReleaseDate().before(d2)) {
+            log.info("Date must be after 1895-01-28");
             throw new ValidateException("Date must be after 1895-01-28");
-        }
-        if (film.getDuration() < 0) {
-            throw new ValidateException("Duration must be positive");
         }
         setId(film);
         films.put(film.getId(), film);
@@ -48,28 +37,17 @@ public class FilmController {
     }
 
     @PutMapping("/films")
-    public Film putFilm(@RequestBody Film film) throws ValidateException, ParseException {
+    public Film putFilm(@Valid @RequestBody Film film) throws ValidateException, ParseException {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date d2 = sdf.parse("1895-01-28");
 
-        if (film.getName().isEmpty()) {
-            throw new ValidateException("Name can not be null");
-        }
-        if (film.getName() == null) {
-            throw new ValidateException("Name can not be null");
-        }
-        if (film.getDescription().length() > 200) {
-            throw new ValidateException("Length of description can't be more that 200");
-        }
         if (film.getReleaseDate().before(d2)) {
+            log.info("Date must be after 1895-01-28");
             throw new ValidateException("Date must be after 1895-01-28");
         }
-        if (film.getDuration() < 0) {
-            throw new ValidateException("Duration must be positive");
-        }
-
         if (!films.containsKey(film.getId())) {
+            log.info("There are no films with this id");
             throw new ValidateException("There are no films with this id");
         }
         films.put(film.getId(), film);
@@ -79,7 +57,6 @@ public class FilmController {
 
     @GetMapping("/films")
     public Collection getFilms() {
-        log.info("All films returned");
         return films.values();
     }
 

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exceptions.ValidateException;
 import ru.yandex.practicum.filmorate.model.User;
 
+import javax.validation.Valid;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -18,23 +19,7 @@ public class UserController {
     private static final Logger log = LoggerFactory.getLogger(FilmController.class);
 
     @PostMapping("/users")
-    public User postUser(@RequestBody User user) throws ValidateException {
-        if (user.getEmail().isBlank()) {
-            throw new ValidateException("Email can not be null");
-        }
-
-        if (user.getEmail() == null) {
-            throw new ValidateException("Email can not be null");
-        }
-
-        if (!user.getEmail().contains("@")) {
-            throw new ValidateException("User email must contains @");
-        }
-
-        if (user.getLogin().isBlank() || user.getLogin() == null) {
-            throw new ValidateException("Login can not be null");
-        }
-
+    public User postUser(@Valid @RequestBody User user) throws ValidateException {
         if (user.getLogin().contains(" ")) {
             throw new ValidateException("Login can not contains probel");
         }
@@ -54,35 +39,17 @@ public class UserController {
     }
 
     @PutMapping("/users")
-    public User putUser(@RequestBody User user) throws ValidateException {
-        if (user.getEmail().isBlank()) {
-            throw new ValidateException("Email can not be null");
-        }
-
-        if (user.getEmail() == null) {
-            throw new ValidateException("Email can not be null");
-        }
-
-        if (!user.getEmail().contains("@")) {
-            throw new ValidateException("User email must contains @");
-        }
-
-        if (user.getLogin().isBlank() || user.getLogin() == null) {
-            throw new ValidateException("Login can not be null");
-        }
-
+    public User putUser(@Valid @RequestBody User user) throws ValidateException {
         if (user.getLogin().contains(" ")) {
             throw new ValidateException("Login can not contains probel");
         }
 
-        if (user.getName().isBlank() || user.getName() == null) {
-            user.setName(user.getLogin());
-        }
-
         if (user.getBirthday().after(Date.valueOf(LocalDate.now()))) {
+            log.info("Birthday can not be in future");
             throw new ValidateException("Birthday can not be in future");
         }
         if (!users.containsKey(user.getId())) {
+            log.info("There is no user with this ID");
             throw new ValidateException("There is no user with this ID");
         }
         users.put(user.getId(), user);
@@ -92,7 +59,6 @@ public class UserController {
 
     @GetMapping("/users")
     public Collection getUsers() {
-        log.info("All users returned");
         return users.values();
     }
 
