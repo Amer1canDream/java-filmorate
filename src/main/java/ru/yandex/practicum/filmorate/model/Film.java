@@ -12,6 +12,7 @@ import java.util.Date;
 @Data
 public class Film {
     private int id;
+
     public Film(int id, String name, String description, Date releaseDate, int duration) {
         this.name = name;
         this.id = id;
@@ -19,10 +20,11 @@ public class Film {
         this.releaseDate = releaseDate;
         this.duration = duration;
     }
+
     @NotBlank
     @NotNull
     private String name;
-    @Size(max=200)
+    @Size(max = 200)
     @Min(0)
     private String description;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
