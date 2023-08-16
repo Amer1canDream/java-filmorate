@@ -17,6 +17,7 @@ public class InMemoryUserStorage implements UserStorage {
     private int id = 0;
     private HashMap<Integer, User> users = new HashMap<>();
     private static final Logger log = LoggerFactory.getLogger(InMemoryUserStorage.class);
+
     @Override
     public void create(User user) throws ValidateException {
         if (user.getLogin().contains(" ")) {
