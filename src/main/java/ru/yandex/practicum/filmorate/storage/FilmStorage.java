@@ -8,8 +8,12 @@ import java.util.List;
 
 public interface FilmStorage {
     void create(Film film) throws ValidateException, ParseException;
+
     void update(Film film) throws ValidateException, ParseException;
+
     List<Film> getFilms();
+
     Film findById(int id);
+
     void saveLikes(Film film) throws ValidateException, ParseException;
 }
