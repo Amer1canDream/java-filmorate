@@ -29,6 +29,7 @@ public class InMemoryFilmStorage implements FilmStorage {
         films.put(film.getId(), film);
         log.info("Film {} created", film.getName());
     }
+
     @Override
     public void update(Film film) throws ValidateException, ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -45,11 +46,13 @@ public class InMemoryFilmStorage implements FilmStorage {
         films.put(film.getId(), film);
         log.info("Film {} updated", film.getName());
     }
+
     @Override
     public List<Film> getFilms() {
         List<Film> filmsList = new ArrayList<Film>(films.values());
         return filmsList;
     }
+
     @Override
     public Film findById(int id) {
         return films.get(id);
