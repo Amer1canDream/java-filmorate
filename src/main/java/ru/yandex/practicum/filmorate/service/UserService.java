@@ -17,6 +17,7 @@ import java.util.List;
 public class UserService {
     private int id = 0;
     protected final UserStorage storage;
+
     @Autowired
     public UserService(UserStorage storage) {
         this.storage = storage;
@@ -39,7 +40,7 @@ public class UserService {
 
     public User findById(int id) {
         User user = storage.findById(id);
-        if ( user == null ) {
+        if (user == null) {
             String message = ("User not found");
             log.warn(message);
             throw new NotFoundException(message);
@@ -47,6 +48,7 @@ public class UserService {
             return user;
         }
     }
+
     public void addFriend(int id, int friendId) {
         User user = this.findById(id);
         User friend = this.findById(friendId);
