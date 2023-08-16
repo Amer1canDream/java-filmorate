@@ -45,8 +45,7 @@ public class FilmService {
 
     public Film findById(int id) {
         Film film = storage.findById(id);
-
-        if (film == null ) {
+        if (film == null) {
             String message = ("Film not found");
             log.warn(message);
             throw new NotFoundException(message);
