@@ -1,29 +1,24 @@
-package ru.yandex.practicum.filmorate.controller;
+package ru.yandex.practicum.filmorate.storage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Component;
+import ru.yandex.practicum.filmorate.controllers.FilmController;
 import ru.yandex.practicum.filmorate.exceptions.ValidateException;
-import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.models.Film;
+
 import java.text.ParseException;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.validation.Valid;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
-@RestController
-public class FilmController {
+@Component
+public class InMemoryFilmStorage implements FilmStorage {
     private int id = 0;
     private static final Logger log = LoggerFactory.getLogger(FilmController.class);
     private HashMap<Integer, Film> films = new HashMap<>();
 
-    @PostMapping("/films")
-    public ResponseEntity postFilm(@Valid @RequestBody Film film) throws ValidateException, ParseException {
+    @Override
+    public void create(Film film) throws ValidateException, ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date d2 = sdf.parse("1895-01-28");
         if (film.getReleaseDate().before(d2)) {
@@ -33,12 +28,9 @@ public class FilmController {
         setId(film);
         films.put(film.getId(), film);
         log.info("Film {} created", film.getName());
-        return new ResponseEntity<>(film, HttpStatus.CREATED);
     }
-
-    @PutMapping("/films")
-    public Film putFilm(@Valid @RequestBody Film film) throws ValidateException, ParseException {
-
+    @Override
+    public void update(Film film) throws ValidateException, ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date d2 = sdf.parse("1895-01-28");
 
@@ -52,12 +44,20 @@ public class FilmController {
         }
         films.put(film.getId(), film);
         log.info("Film {} updated", film.getName());
-        return film;
+    }
+    @Override
+    public List<Film> getFilms() {
+        List<Film> filmsList = new ArrayList<Film>(films.values());
+        return filmsList;
+    }
+    @Override
+    public Film findById(int id) {
+        return films.get(id);
     }
 
-    @GetMapping("/films")
-    public Collection getFilms() {
-        return films.values();
+    @Override
+    public void saveLikes(Film film) throws ValidateException, ParseException {
+        update(film);
     }
 
     private void setId(Film film) {

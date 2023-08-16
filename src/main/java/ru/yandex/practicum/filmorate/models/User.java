@@ -1,12 +1,15 @@
-package ru.yandex.practicum.filmorate.model;
+package ru.yandex.practicum.filmorate.models;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.util.*;
 
 @Data
 public class User {
@@ -28,5 +31,24 @@ public class User {
     private String name;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
+
+    @Getter(AccessLevel.NONE) @Setter(AccessLevel.NONE)
+    private final Set<Integer> friends = new HashSet<>();
+
+    @Getter(AccessLevel.NONE) @Setter(AccessLevel.NONE)
+    private final Set<Integer> films = new HashSet<>();
+
+    public void addFriend(int id) {
+        friends.add(id);
+    }
+    public void removeFriend(int id) {
+        friends.remove(id);
+    }
+    public List<Integer> getFiends() {
+        return new ArrayList<>(friends);
+    }
+    public boolean containsFriend(int id){
+        return friends.contains(id);
+    }
 
 }
