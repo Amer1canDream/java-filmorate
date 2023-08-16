@@ -41,14 +41,18 @@ public class User {
     public void addFriend(int id) {
         friends.add(id);
     }
+
     public void removeFriend(int id) {
         friends.remove(id);
     }
+
     public List<Integer> getFiends() {
         return new ArrayList<>(friends);
     }
+
     public boolean containsFriend(int id){
         return friends.contains(id);
     }
+
 
 }
