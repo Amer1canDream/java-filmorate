@@ -46,11 +46,11 @@ public class User {
         friends.remove(id);
     }
 
-    public List<Integer> getFiends(){
+    public List<Integer> getFiends() {
         return new ArrayList<>(friends);
     }
 
-    public boolean containsFriend(int id){
+    public boolean containsFriend(int id) {
         return friends.contains(id);
     }
 }
