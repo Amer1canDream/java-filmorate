@@ -21,6 +21,7 @@ public class FilmService {
     private int id = 0;
     protected final FilmStorage storage;
     private final UserService userService;
+
     @Autowired
     public FilmService(FilmStorage storage, UserService userService) {
         this.storage = storage;
@@ -44,6 +45,7 @@ public class FilmService {
 
     public Film findById(int id) {
         Film film = storage.findById(id);
+
         if (film == null ) {
             String message = ("Film not found");
             log.warn(message);
