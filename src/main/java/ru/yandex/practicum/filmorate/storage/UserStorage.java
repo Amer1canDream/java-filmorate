@@ -2,7 +2,7 @@ package ru.yandex.practicum.filmorate.storage;
 import ru.yandex.practicum.filmorate.exceptions.ValidateException;
 import ru.yandex.practicum.filmorate.models.User;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface UserStorage {
 
@@ -10,7 +10,7 @@ public interface UserStorage {
 
     void update(User user) throws ValidateException;
 
-    Collection getUsers();
+    List<User> getUsers();
 
     User findById(int id);
 }

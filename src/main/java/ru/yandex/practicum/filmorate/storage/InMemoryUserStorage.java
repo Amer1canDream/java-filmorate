@@ -4,12 +4,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exceptions.ValidateException;
+import ru.yandex.practicum.filmorate.models.Film;
 import ru.yandex.practicum.filmorate.models.User;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 @Component
 public class InMemoryUserStorage implements UserStorage {
@@ -55,8 +58,9 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public Collection getUsers() {
-        return users.values();
+    public List<User> getUsers() {
+        List<User> usersList = new ArrayList<User>(users.values());
+        return usersList;
     }
 
     @Override

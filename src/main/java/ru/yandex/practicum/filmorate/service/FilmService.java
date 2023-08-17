@@ -8,6 +8,7 @@ import ru.yandex.practicum.filmorate.exceptions.ValidateException;
 import ru.yandex.practicum.filmorate.models.Film;
 import ru.yandex.practicum.filmorate.models.User;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
+import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -20,12 +21,12 @@ import java.util.List;
 public class FilmService {
     private int id = 0;
     protected final FilmStorage storage;
-    private final UserService userService;
+    private final UserStorage userStorage;
 
     @Autowired
-    public FilmService(FilmStorage storage, UserService userService) {
+    public FilmService(FilmStorage storage, UserStorage userStorage) {
         this.storage = storage;
-        this.userService = userService;
+        this.userStorage = userStorage;
     }
 
     public Film create(Film film) throws ValidateException, ParseException {
@@ -55,7 +56,7 @@ public class FilmService {
 
     public void addLike(int id, int userId) throws ValidateException, ParseException {
         Film film = this.findById(id);
-        User user = userService.findById(userId);
+        User user = userStorage.findById(userId);
         if (film == null || user == null) {
             String message = ("Film or user not found");
             log.warn(message);
@@ -67,7 +68,7 @@ public class FilmService {
 
     public void removeLike(int id, int userId) throws ValidateException, ParseException {
         Film film = this.findById(id);
-        User user = userService.findById(userId);
+        User user = userStorage.findById(userId);
         if (film == null || user == null) {
             String message = ("Film or user not found");
             log.warn(message);
