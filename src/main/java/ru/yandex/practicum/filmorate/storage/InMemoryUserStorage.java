@@ -3,14 +3,13 @@ package ru.yandex.practicum.filmorate.storage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import ru.yandex.practicum.filmorate.exceptions.ValidateException;
-import ru.yandex.practicum.filmorate.models.Film;
 import ru.yandex.practicum.filmorate.models.User;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class InMemoryUserStorage implements UserStorage {
             throw new ValidateException("Birthday can not be in future");
         }
 
-        if (user.getName().isBlank()) {
+        if (StringUtils.isEmpty(user.getName())) {
             user.setName(user.getLogin());
         }
 
@@ -43,7 +42,7 @@ public class InMemoryUserStorage implements UserStorage {
     @Override
     public void update(User user) throws ValidateException {
         if (user.getLogin().contains(" ")) {
-            throw new ValidateException("Login can not contains probel");
+            throw new ValidateException("Login can not contain whitespaces");
         }
         if (user.getBirthday().after(Date.valueOf(LocalDate.now()))) {
             log.info("Birthday can not be in future");
