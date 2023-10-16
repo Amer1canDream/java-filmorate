@@ -172,7 +172,7 @@ public class DbFilmStorage implements FilmStorage {
         }
         ArrayList<Integer> genresId = new ArrayList<>();
         for (var genre : genres) {
-            if (genresId.contains(genre.getId()) ) {
+            if (genresId.contains(genre.getId())) {
                 break;
             } else {
                 genresId.add(genre.getId());
