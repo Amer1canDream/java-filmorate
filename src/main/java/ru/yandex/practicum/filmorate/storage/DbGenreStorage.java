@@ -19,7 +19,7 @@ import java.util.*;
 @Primary
 @Slf4j
 @Qualifier("DbGenreStorage")
-public class DbGenreStorage implements GenreStorage {
+public class DbGenreStorage implements GenreStorage, Comparator<Genre> {
     private int id = 0;
     private final JdbcTemplate jdbcTemplate;
 
@@ -74,8 +74,17 @@ public class DbGenreStorage implements GenreStorage {
     }
 
     @Override
+    public int compare(Genre o1, Genre o2) {
+        return Integer.compare(o1.getId(), o2.getId());
+    }
+
+    @Override
     public Set<Genre> getGenresByFilm(Film film) {
         String sql = "SELECT g.GENRE_ID, g.NAME FROM GENRES g NATURAL JOIN FILMS_GENRES fg WHERE fg.FILM_ID = ? ORDER BY g.GENRE_ID";
-        return new HashSet<>(jdbcTemplate.query(sql, this::mapToGenre, film.getId()));
+        Set<Genre> genresSet = new TreeSet<>(this::compare);
+        for (Genre genre: jdbcTemplate.query(sql, this::mapToGenre, film.getId())) {
+            genresSet.add(genre);
+        }
+        return genresSet;
     }
 }

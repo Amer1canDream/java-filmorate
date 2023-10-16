@@ -18,4 +18,6 @@ public interface GenreStorage {
     Genre findById(int id);
 
     void delete(int id);
+
+    int compare(Genre o1, Genre o2);
 }

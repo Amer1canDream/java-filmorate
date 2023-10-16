@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 public class Genre {
     @Size(max = 30)
     private String name;
-    private int id;
+    private Integer id;
 
     public Genre(int id, String name) {
         this.id = id;
