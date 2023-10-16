@@ -21,7 +21,7 @@ public class InMemoryUserStorage implements UserStorage {
     private static final Logger log = LoggerFactory.getLogger(InMemoryUserStorage.class);
 
     @Override
-    public void create(User user) throws ValidateException {
+    public User create(User user) throws ValidateException {
         if (user.getLogin().contains(" ")) {
             throw new ValidateException("Login can not contains probel");
         }
@@ -37,10 +37,11 @@ public class InMemoryUserStorage implements UserStorage {
         setId(user);
         users.put(user.getId(), user);
         log.info("User {} created", user.getName());
+        return user;
     }
 
     @Override
-    public void update(User user) throws ValidateException {
+    public User update(User user) throws ValidateException {
         if (user.getLogin().contains(" ")) {
             throw new ValidateException("Login can not contain whitespaces");
         }
@@ -54,6 +55,7 @@ public class InMemoryUserStorage implements UserStorage {
         }
         users.put(user.getId(), user);
         log.info("User {} updated", user.getName());
+        return user;
     }
 
     @Override
@@ -65,6 +67,37 @@ public class InMemoryUserStorage implements UserStorage {
     @Override
     public User findById(int id) {
         return users.get(id);
+    }
+
+    @Override
+    public boolean containsFriendship(int filterId1, int filterId2, Boolean filterConfirmed) {
+        return false;
+    }
+
+
+    @Override
+    public void removeFriendship(int id, int friendId) {
+
+    }
+
+    @Override
+    public List<Long> getUsersFilms(int userId) {
+        return null;
+    }
+
+    @Override
+    public void loadFriends(User user) {
+
+    }
+
+    @Override
+    public void updateFriendship(int id1, int id2, boolean confirmed, int filterId1, int filterId2) {
+
+    }
+
+    @Override
+    public void insertFriendship(int id, int friendId) {
+
     }
 
     private void setId(User user) {

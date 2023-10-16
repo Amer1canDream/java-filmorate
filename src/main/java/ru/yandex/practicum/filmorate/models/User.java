@@ -38,6 +38,10 @@ public class User {
     @Getter(AccessLevel.NONE) @Setter(AccessLevel.NONE)
     private final Set<Integer> films = new HashSet<>();
 
+    public User() {
+
+    }
+
     public void addFriend(int id) {
         friends.add(id);
     }

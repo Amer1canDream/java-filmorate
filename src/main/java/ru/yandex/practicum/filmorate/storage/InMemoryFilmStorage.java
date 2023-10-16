@@ -63,6 +63,21 @@ public class InMemoryFilmStorage implements FilmStorage {
         update(film);
     }
 
+    @Override
+    public void createGenresByFilm(Film film) {
+
+    }
+
+    @Override
+    public void loadLikes(Film film) {
+
+    }
+
+    @Override
+    public void updateGenresByFilm(Film film) {
+
+    }
+
     private void setId(Film film) {
         id++;
         film.setId(id);

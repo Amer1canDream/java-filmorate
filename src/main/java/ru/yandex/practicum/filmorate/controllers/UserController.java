@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}/friends/{friendId}")
-    public void addFriend(@PathVariable("id") int id1, @PathVariable("friendId") int id2) {
+    public void addFriend(@PathVariable("id") int id1, @PathVariable("friendId") int id2) throws ValidateException {
         service.addFriend(id1, id2);
     }
 
