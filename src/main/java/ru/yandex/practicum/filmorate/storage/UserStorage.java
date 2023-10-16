@@ -13,6 +13,7 @@ public interface UserStorage {
     List<User> getUsers();
 
     User findById(int id);
+
     boolean containsFriendship(int filterId1, int filterId2, Boolean filterConfirmed);
 
     void updateFriendship(int id1, int id2, boolean confirmed, int filterId1, int filterId2);
