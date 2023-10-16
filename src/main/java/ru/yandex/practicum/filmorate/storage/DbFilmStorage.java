@@ -26,6 +26,7 @@ import java.util.*;
 public class DbFilmStorage implements FilmStorage {
     private final JdbcTemplate jdbcTemplate;
     private int id = 0;
+
     @Autowired
     public DbFilmStorage(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -170,8 +171,8 @@ public class DbFilmStorage implements FilmStorage {
             return;
         }
         ArrayList<Integer> genresId = new ArrayList<>();
-        for ( var genre : genres) {
-            if ( genresId.contains(genre.getId()) ) {
+        for (var genre : genres) {
+            if (genresId.contains(genre.getId()) ) {
                 break;
             } else {
                 genresId.add(genre.getId());
