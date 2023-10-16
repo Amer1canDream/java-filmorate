@@ -4,10 +4,10 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.Size;
-import java.util.Objects;
 
 @Getter
 @Setter
+@ToString
 public class Genre {
     @Size(max = 30)
     private String name;
