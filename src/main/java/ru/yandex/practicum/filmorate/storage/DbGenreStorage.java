@@ -22,6 +22,7 @@ import java.util.*;
 public class DbGenreStorage implements GenreStorage {
     private int id = 0;
     private final JdbcTemplate jdbcTemplate;
+
     @Autowired
     public DbGenreStorage(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
