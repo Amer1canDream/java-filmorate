@@ -70,7 +70,7 @@ public class UserService {
         if (storage.containsFriendship(friendId, id, false)) {
             //friendId уже добавил ранее в друзья
             storage.updateFriendship(friendId, id, true, friendId, id);
-        } else if (!storage.containsFriendship(id, friendId, null)){
+        } else if (!storage.containsFriendship(id, friendId, null)) {
             //Односторонняя связь, не было дружбы
             storage.insertFriendship(id, friendId);
         }
