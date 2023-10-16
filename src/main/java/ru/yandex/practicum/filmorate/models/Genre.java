@@ -12,6 +12,7 @@ public class Genre {
     @Size(max = 30)
     private String name;
     private int id;
+
     public Genre(int id, String name) {
         this.id = id;
         this.name = name;
