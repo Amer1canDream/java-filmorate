@@ -74,7 +74,6 @@ public class InMemoryUserStorage implements UserStorage {
         return false;
     }
 
-
     @Override
     public void removeFriendship(int id, int friendId) {
 

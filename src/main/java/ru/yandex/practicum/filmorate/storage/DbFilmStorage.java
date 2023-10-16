@@ -90,6 +90,7 @@ public class DbFilmStorage implements FilmStorage {
                         "AND YEAR(f.RELEASE_DATE) = ? ORDER BY f.FILM_ID";
         return jdbcTemplate.query(sql, this::mapToFilm, genreId, year);
     }
+
     @Override
     public void create(Film film) throws ValidateException, ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -113,6 +114,7 @@ public class DbFilmStorage implements FilmStorage {
 
         film.setId(simpleJdbcInsert.executeAndReturnKey(values).intValue());
     }
+
     @Override
     public void update(Film film) throws ParseException, ValidateException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -139,6 +141,7 @@ public class DbFilmStorage implements FilmStorage {
         final String sql = "DELETE FROM FILMS WHERE FILM_ID = ?";
         jdbcTemplate.update(sql, id);
     }
+
     @Override
     public void saveLikes(Film film) {
         jdbcTemplate.update("DELETE FROM FILMS_LIKES WHERE FILM_ID = ?", film.getId());

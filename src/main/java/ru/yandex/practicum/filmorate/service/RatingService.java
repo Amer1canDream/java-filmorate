@@ -3,7 +3,6 @@ package ru.yandex.practicum.filmorate.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.yandex.practicum.filmorate.exceptions.InvalidIdException;
 import ru.yandex.practicum.filmorate.exceptions.NotFoundException;
 import ru.yandex.practicum.filmorate.models.Rating;
 import ru.yandex.practicum.filmorate.storage.DbRatingStorage;
@@ -35,10 +34,8 @@ public class RatingService {
             log.warn("Rating not found: " + data.getId());
             throw new NotFoundException("Rating not found: " + data.getId());
         }
-
         return newData;
     }
-
 
     public Rating findById(int id) {
         Rating data = storage.findById(id);
@@ -46,7 +43,6 @@ public class RatingService {
             log.warn("Rating not found: " + id);
             throw new NotFoundException("Rating not found: " + id);
         }
-
         return data;
     }
 

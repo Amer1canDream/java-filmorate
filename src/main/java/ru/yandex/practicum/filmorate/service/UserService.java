@@ -67,7 +67,6 @@ public class UserService {
             log.warn("Друг существует");
             return;
         }
-
         if (storage.containsFriendship(friendId, id, false)) {
             //friendId уже добавил ранее в друзья
             storage.updateFriendship(friendId, id, true, friendId, id);
@@ -90,7 +89,6 @@ public class UserService {
             return;
         }
         user.removeFriend(friendId);
-
         if (storage.containsFriendship(id, friendId, false)) {
             //Односторонняя связь. friendId не одобрял
             storage.removeFriendship(id, friendId);
@@ -131,13 +129,10 @@ public class UserService {
         List<Integer> friendsId1 = user1.getFiends();
         List<Integer> friendsId2 = user2.getFiends();
         friendsId1.retainAll(friendsId2);
-
         List<User> friends = new ArrayList<>();
         for (var friendId : friendsId1) {
             friends.add(this.findById(friendId));
         }
-
         return friends;
     }
-
 }

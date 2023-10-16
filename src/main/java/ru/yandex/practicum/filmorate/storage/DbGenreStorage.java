@@ -42,7 +42,6 @@ public class DbGenreStorage implements GenreStorage {
         throw new UnsupportedOperationException("Operation not supported");
     }
 
-
     private Genre mapToGenre(ResultSet resultSet, int rowNum) throws SQLException {
         Genre genre = new Genre();
         genre.setId(resultSet.getInt("GENRE_ID"));

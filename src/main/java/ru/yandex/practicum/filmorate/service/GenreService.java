@@ -15,17 +15,19 @@ import java.util.List;
 public class GenreService {
 
     protected final GenreStorage genreStorage;
+
     @Autowired
     public GenreService(GenreStorage genreStorage) {
         this.genreStorage = genreStorage;
     }
-    public void validationBeforeCreate(Genre data) {
 
+    public void validationBeforeCreate(Genre data) {
     }
 
     public void validationBeforeUpdate(Genre data) {
         validateId(data.getId());
     }
+
     public List<Genre> findAll() {
         return genreStorage.findAll();
     }
@@ -42,10 +44,8 @@ public class GenreService {
             log.warn("Genre not found: " + data.getId());
             throw new NotFoundException("Genre not found: " + data.getId());
         }
-
         return newData;
     }
-
 
     public void validateId(int id) {
         if (id == 0) {
@@ -65,7 +65,6 @@ public class GenreService {
             log.warn("Genre not found: " + id);
             throw new NotFoundException("Genre not found: " + id);
         }
-
         return data;
     }
 

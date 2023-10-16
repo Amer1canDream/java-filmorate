@@ -88,15 +88,12 @@ public class DbUserStorage implements UserStorage {
         if (StringUtils.isEmpty(user.getName())) {
             user.setName(user.getLogin());
         }
-
         setId(user);
-
         Map<String, Object> values = new HashMap<>();
         values.put("EMAIL", user.getEmail());
         values.put("LOGIN", user.getLogin());
         values.put("NAME", user.getName());
         values.put("BIRTHDAY", user.getBirthday());
-
         user.setId(simpleJdbcInsert.executeAndReturnKey(values).intValue());
         return user;
     }

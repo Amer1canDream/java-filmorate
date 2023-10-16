@@ -10,7 +10,6 @@ public interface UserStorage {
 
     User update(User user) throws ValidateException;
 
-
     List<User> getUsers();
 
     User findById(int id);
@@ -21,7 +20,6 @@ public interface UserStorage {
     void insertFriendship(int id, int friendId);
 
     void removeFriendship(int filterId1, int filterId2);
-
 
     List<Long> getUsersFilms(int userId);
 
