@@ -63,7 +63,6 @@ public class DbFilmStorage implements FilmStorage {
                         "FROM FILMS f " +
                         "LEFT OUTER JOIN ratings AS r ON f.rating_id = r.rating_id " +
                         "ORDER BY f.film_id";
-        System.out.println(jdbcTemplate.query(sql, this::mapToFilm));
         return jdbcTemplate.query(sql, this::mapToFilm);
     }
 
@@ -166,7 +165,6 @@ public class DbFilmStorage implements FilmStorage {
         String sql = "INSERT INTO FILMS_GENRES (FILM_ID, GENRE_ID) VALUES(?, ?)";
 
         Set<Genre> genres = film.getGenres();
-        System.out.println(film.getGenres());
         if (genres == null) {
             return;
         }

@@ -56,8 +56,6 @@ public class UserService {
     public void addFriend(int id, int friendId) throws ValidateException {
         User user = this.findById(id);
         User friend = this.findById(friendId);
-        System.out.println(user);
-        System.out.println(friend);
         if (user == null || friend == null) {
             String message = ("Пользователь не найден");
             log.warn(message);
@@ -109,12 +107,10 @@ public class UserService {
             throw new NotFoundException(message);
         }
         List<Integer> friendsId = user.getFiends();
-        System.out.println(friendsId);
         List<User> friends = new ArrayList<>();
         for (var friendId : friendsId) {
             friends.add(this.findById(friendId));
         }
-        System.out.println(friends);
         return friends;
     }
 
