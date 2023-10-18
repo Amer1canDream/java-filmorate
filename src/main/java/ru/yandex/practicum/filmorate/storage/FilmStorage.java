@@ -16,4 +16,10 @@ public interface FilmStorage {
     Film findById(int id);
 
     void saveLikes(Film film) throws ValidateException, ParseException;
+
+    void createGenresByFilm(Film film);
+
+    void loadLikes(Film film);
+
+    void updateGenresByFilm(Film film);
 }

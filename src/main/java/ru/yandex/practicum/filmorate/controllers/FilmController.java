@@ -40,7 +40,7 @@ public class FilmController {
     @PutMapping("/films")
     public Film putFilm(@Valid @RequestBody Film film) throws ValidateException, ParseException {
         service.update(film);
-        return film;
+        return service.findById(film.getId());
     }
 
     @GetMapping("/films")

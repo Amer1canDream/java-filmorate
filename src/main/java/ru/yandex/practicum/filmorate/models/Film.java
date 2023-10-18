@@ -1,9 +1,6 @@
 package ru.yandex.practicum.filmorate.models;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Min;
@@ -14,9 +11,13 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
 public class Film {
     private int id;
+
+    public Film() {
+    }
 
     public Film(int id, String name, String description, Date releaseDate, int duration) {
         this.name = name;
@@ -31,11 +32,13 @@ public class Film {
     @NotBlank
     @NotNull
     private String name;
+    private Rating mpa;
+    private Set<Genre> genres;
     @Size(max = 200)
     private String description;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date releaseDate;
-    @Min(0)
+    @Min(1)
     private int duration;
 
     public void addLike(int userId) {
@@ -53,4 +56,5 @@ public class Film {
     public Set<Integer> getLikes() {
         return new HashSet<>(likes);
     }
+
 }

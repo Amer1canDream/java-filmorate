@@ -2,55 +2,67 @@ package ru.yandex.practicum.filmorate.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exceptions.NotFoundException;
 import ru.yandex.practicum.filmorate.exceptions.ValidateException;
 import ru.yandex.practicum.filmorate.models.Film;
 import ru.yandex.practicum.filmorate.models.User;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
+import ru.yandex.practicum.filmorate.storage.GenreStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Slf4j
 public class FilmService {
     private int id = 0;
-    protected final FilmStorage storage;
+    @Qualifier("DbFilmStorage")
+    protected final FilmStorage filmStorage;
+    @Qualifier("DbGenreStorage")
+    protected final GenreStorage genreStorage;
     private final UserStorage userStorage;
 
     @Autowired
-    public FilmService(FilmStorage storage, UserStorage userStorage) {
-        this.storage = storage;
+    public FilmService(FilmStorage filmStorage, GenreStorage genreStorage, UserStorage userStorage) {
+        this.filmStorage = filmStorage;
+        this.genreStorage = genreStorage;
         this.userStorage = userStorage;
     }
 
     public Film create(Film film) throws ValidateException, ParseException {
-        storage.create(film);
+        filmStorage.create(film);
+        filmStorage.updateGenresByFilm(film);
         return film;
     }
 
     public Film update(Film film) throws ValidateException, ParseException {
-        storage.update(film);
+        filmStorage.update(film);
+        filmStorage.updateGenresByFilm(film);
         return film;
     }
 
     public Collection getFilms() {
-        Collection films = storage.getFilms();
+        List<Film> films = filmStorage.getFilms();
+        films.forEach(this::loadData);
         return films;
     }
 
+    private void loadData(Film film) {
+        film.setGenres(genreStorage.getGenresByFilm(film));
+        filmStorage.loadLikes(film);
+    }
+
     public Film findById(int id) {
-        Film film = storage.findById(id);
+        Film film = filmStorage.findById(id);
         if (film == null) {
             String message = ("Film not found");
             log.warn(message);
             throw new NotFoundException(message);
         }
+        loadData(film);
         return film;
     }
 
@@ -63,7 +75,7 @@ public class FilmService {
             throw  new NotFoundException(message);
         }
         film.addLike(userId);
-        storage.saveLikes(film);
+        filmStorage.saveLikes(film);
     }
 
     public void removeLike(int id, int userId) throws ValidateException, ParseException {
@@ -75,7 +87,7 @@ public class FilmService {
             throw  new NotFoundException(message);
         }
         film.removeLike(userId);
-        storage.saveLikes(film);
+        filmStorage.saveLikes(film);
     }
 
     public List<Film> findPopularMovies(int count) {
@@ -86,5 +98,4 @@ public class FilmService {
         }
         return new ArrayList<>(films.subList(0, count));
     }
-
 }
